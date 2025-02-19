@@ -41,13 +41,13 @@ export default function Calculator() {
         type="number"
         value={num1}
         onChange={(e) => setNum1(e.target.value)}
-        placeholder="Enter first number"
+        placeholder=""
       />
       <input
         type="number"
         value={num2}
         onChange={(e) => setNum2(e.target.value)}
-        placeholder="Enter second number"
+        placeholder=""
       />
       <div className="buttons">
         {["+", "-", "*", "/"].map((op) => (
