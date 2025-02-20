@@ -67,7 +67,7 @@ function Calculator() {
         placeholder=""
       />
       <button onClick={handleEqualClick}>=</button>
-      <p>Equal: {result}</p>
+      <p>Equalasdasdasdas: {result}</p>
     </div>
   );
 }
