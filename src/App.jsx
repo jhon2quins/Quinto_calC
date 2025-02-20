@@ -1,62 +1,75 @@
-import { useState } from "react";
-import "./App.css";
+import React, { useState } from 'react';
+import './App.css';
 
-export default function Calculator() {
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
-  const [operator, setOperator] = useState(null);
-  const [result, setResult] = useState("");
+function Calculator() {
+  const [num1, setNum1] = useState('');
+  const [num2, setNum2] = useState('');
+  const [result, setResult] = useState('');
+  const [operator, setOperator] = useState('');
 
-  const handleCalculation = () => {
-    if (num1 === "" || num2 === "" || !operator) {
-      setResult("Enter values and select an operator");
-      return;
-    }
-    const n1 = parseFloat(num1);
-    const n2 = parseFloat(num2);
-    let res;
+  const handleNum1Change = (e) => {
+    setNum1(e.target.value);
+  };
+
+  const handleNum2Change = (e) => {
+    setNum2(e.target.value);
+  };
+
+  const handleOperatorChange = (e) => {
+    setOperator(e.target.value);
+  };
+
+  const calculateResult = () => {
+    let result = 0;
     switch (operator) {
-      case "+":
-        res = n1 + n2;
+      case '+':
+        result = parseFloat(num1) + parseFloat(num2);
         break;
-      case "-":
-        res = n1 - n2;
+      case '-':
+        result = parseFloat(num1) - parseFloat(num2);
         break;
-      case "*":
-        res = n1 * n2;
+      case '*':
+        result = parseFloat(num1) * parseFloat(num2);
         break;
-      case "/":
-        res = n2 !== 0 ? n1 / n2 : "Error";
+      case '/':
+        result = parseFloat(num1) / parseFloat(num2);
         break;
       default:
-        res = "Error";
+        result = 'Invalid operator';
     }
-    setResult(res);
+    setResult(result.toString());
+  };
+
+  const handleEqualClick = () => {
+    calculateResult();
   };
 
   return (
     <div className="calculator">
-       <h1>Basic Calculator</h1>
+      <h1>Basic Calculator</h1>
       <input
         type="number"
         value={num1}
-        onChange={(e) => setNum1(e.target.value)}
+        onChange={handleNum1Change}
         placeholder=""
       />
+      <select value={operator} onChange={handleOperatorChange}>
+        <option value="">Select Operator</option>
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
       <input
         type="number"
         value={num2}
-        onChange={(e) => setNum2(e.target.value)}
+        onChange={handleNum2Change}
         placeholder=""
       />
-      <div className="buttons">
-        {["+", "-", "*", "/"].map((op) => (
-          <button key={op} onClick={() => setOperator(op)}>{op}</button>
-        ))}
-        <button className="equal-btn" onClick={handleCalculation}>=</button>
-      </div>
-      <button className="clear-btn" onClick={() => { setNum1(""); setNum2(""); setOperator(null); setResult(""); }}>Clear</button>
-      <div className="result">= {result}</div>
+      <button onClick={handleEqualClick}>=</button>
+      <p>Equal: {result}</p>
     </div>
   );
 }
+
+export default Calculator;
